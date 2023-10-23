@@ -18,9 +18,6 @@ import com.springrest.courseapplication.entities.Course;
 import com.springrest.courseapplication.services.CourseService;
 
 
-
-
-
 @RestController //to tell the project it is controller
   				//It is  a combination of @response body and @controller
 public class MyController {
@@ -29,7 +26,7 @@ public class MyController {
 	private CourseService courseService;
 	@GetMapping("/home")
 	public String home() {
-		return "This ismy home page";
+		return "This is my home page";
 	}
 	
 	@RequestMapping(path="/courses" , method= RequestMethod.GET)
