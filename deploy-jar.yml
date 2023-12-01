@@ -1,24 +1,26 @@
----
 - name: Deploy jar using Jenkins
   hosts: slave
   become: yes
-  
+
   vars:
-	ARTIFACTORY_USERNAME="admin"
-	ARTIFACTORY_PASSWORD="password123"
-  
+    ARTIFACTORY_USERNAME: "admin"
+    ARTIFACTORY_PASSWORD: "password123"
+
   tasks:
-  
-  	- name: Stop running jar
-        shell: "if lsof -i :7000; then
-  				echo "Port 7000 is in use, killing running port"
-  				kill -9 $(lsof -t -i :7000)
-  			  else
-  					echo "Port 7000 is not in use, skipping Stop Jar stage"
-  			  fi"
-  
+
+    - name: Stop running jar
+      shell: |
+        if lsof -i :7000; then
+          echo "Port 7000 is in use, killing running port"
+          kill -9 $(lsof -t -i :7000)
+        else
+          echo "Port 7000 is not in use, skipping Stop Jar stage"
+        fi
+
     - name: Download jar from Artifactory
-      shell: "curl -u "{{ ARTIFACTORY_USERNAME }}: {{ ARTIFACTORY_PASSWORD }}" -X GET "http://3.83.99.17:8082/artifactory/my-repo/course-app-${BUILD_NUMBER}.jar" -o /opt/course-app-${BUILD_NUMBER}.jar"
-	  
+      shell: |
+        curl -u "{{ ARTIFACTORY_USERNAME }}:{{ ARTIFACTORY_PASSWORD }}" -X GET "http://3.83.99.17:8082/artifactory/my-repo/course-app-${BUILD_NUMBER}.jar" -o "/opt/course-app-${BUILD_NUMBER}.jar"
+
     - name: Start jar
-      shell: "java -jar /opt/course-app-${BUILD_NUMBER}.jar"
+      shell: |
+        java -jar "/opt/course-app-${BUILD_NUMBER}.jar"
