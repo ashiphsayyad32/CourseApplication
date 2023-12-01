@@ -1,0 +1,8 @@
+[jenkins]
+ec2-54-86-86-65.compute-1.amazonaws.com
+
+[jfrog]
+ec2-3-83-99-17.compute-1.amazonaws.com
+
+[slave]
+ec2-44-202-236-98.compute-1.amazonaws.com
